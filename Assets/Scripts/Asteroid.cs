@@ -4,7 +4,7 @@ using System.Collections;
 
 [RequireComponent(typeof(SpriteRenderer))]
 [RequireComponent(typeof(Rigidbody2D))]
-public class Asteroid : MonoBehaviour
+public class Asteroid : MonoBehaviour, IDamageable
 {
     #region Params
     public new Rigidbody2D rigidbody { get; private set; }
@@ -78,19 +78,7 @@ public class Asteroid : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Bullet"))
         {
-            // Check if the asteroid is large enough to split in half
-            // (both parts must be greater than the minimum size)
-            if ((size * 0.5f) >= minSize)
-            {
-                CreateSplit();
-                CreateSplit();
-            }
-
-            GameManager.Instance.AsteroidDestroyed(this);
-
-            // Destroy the current asteroid since it is either replaced by two
-            // new asteroids or small enough to be destroyed by the bullet
-            Destroy(gameObject);
+            TakeDamage(0);
         }
     }
 
@@ -107,6 +95,23 @@ public class Asteroid : MonoBehaviour
             transform.position = Vector3.Lerp(transform.position ,new Vector3( 7.45f , 0 ,0 ) , Time.deltaTime * .5f);
             yield return null;
         }
+    }
+
+    public void TakeDamage(int damage)
+    {
+        // Check if the asteroid is large enough to split in half
+        // (both parts must be greater than the minimum size)
+        if ((size * 0.5f) >= minSize)
+        {
+            CreateSplit();
+            CreateSplit();
+        }
+
+        GameManager.Instance.AsteroidDestroyed(this);
+
+        // Destroy the current asteroid since it is either replaced by two
+        // new asteroids or small enough to be destroyed by the bullet
+        Destroy(gameObject);
     }
     #endregion
 

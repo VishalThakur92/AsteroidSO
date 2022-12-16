@@ -104,7 +104,7 @@ public class GameManager : MonoBehaviour
         if (asteroid.size < 0.7f) {
             SetScore(score + 100); // small asteroid
         }
-        //If you want to reward player for shooting large/Medium Asteroids uncomment these
+        //If you want to reward player for shooting large/Medium Asteroids
         //else if (asteroid.size < 1.4f) {
         //    SetScore(score + 50); // medium asteroid
         //} else {

@@ -10,6 +10,7 @@ public class PowerUp : MonoBehaviour
     public PowerUpDataSO powerUpData;
 
     public Rigidbody2D rigidbody;
+
     #endregion
 
     #region Methods

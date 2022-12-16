@@ -2,7 +2,7 @@
 using System.Collections;
 
 [RequireComponent(typeof(Rigidbody2D))]
-public class SpaceShip : MonoBehaviour
+public class SpaceShip : MonoBehaviour, IDamageable
 {
     #region Params
     [SerializeField]
@@ -149,21 +149,7 @@ public class SpaceShip : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Asteroid"))
         {
-            if (!isShieldActive)
-            {
-                health -= collision.gameObject.GetComponent<Asteroid>().damagePoints;
-
-                if (health < 0)
-                    health = 0;
-
-                GameManager.Instance.OnPlayerHitAsteroidBehaviour(this);
-            }
-            else
-            {
-                ToggleShield(false);
-            }
-
-
+            TakeDamage(collision.gameObject.GetComponent<Asteroid>().damagePoints);
         }
     }
 
@@ -196,6 +182,25 @@ public class SpaceShip : MonoBehaviour
         CancelInvoke(nameof(BlasterShoot));
         //currentShootingMode = ShootingModes.normal;s
         StopCoroutine(BlasterModeBehaviour());
+    }
+
+    public void TakeDamage(int damage)
+    {
+
+        if (!isShieldActive)
+        {
+            health -= damage;
+
+            if (health < 0)
+                health = 0;
+
+            GameManager.Instance.OnPlayerHitAsteroidBehaviour(this);
+        }
+        else
+        {
+            ToggleShield(false);
+        }
+
     }
     #endregion
 

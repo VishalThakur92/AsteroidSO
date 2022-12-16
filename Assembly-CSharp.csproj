@@ -70,6 +70,7 @@
     <Compile Include="Assets\Scripts\Weapon\Parent\Weapon.cs" />
     <Compile Include="Assets\Scripts\Weapon\Child\NormalWeapon.cs" />
     <Compile Include="Assets\Scripts\Weapon\Child\Blaster_Weapon.cs" />
+    <Compile Include="Assets\Scripts\Interface\IDamageable.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">
