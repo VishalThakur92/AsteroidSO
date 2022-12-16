@@ -2,7 +2,7 @@ using UnityEngine;
 
 [RequireComponent(typeof(SpriteRenderer))]
 [RequireComponent(typeof(Rigidbody2D))]
-public class PowerUp : MonoBehaviour
+public class PowerUp : MonoBehaviour,ICollectible
 {
     #region Params
     [SerializeField]
@@ -33,14 +33,13 @@ public class PowerUp : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-            OnPowerUpCollectedBehaviour();
+            OnCollect();
         }
     }
 
 
 
-    void OnPowerUpCollectedBehaviour() {
-
+    public void OnCollect() {
         //Reward player with this Powerup
         GameManager.Instance.OnPowerUpCollectedBehaviour(this);
 
@@ -48,6 +47,5 @@ public class PowerUp : MonoBehaviour
         // new asteroids or small enough to be destroyed by the bullet
         Destroy(gameObject);
     }
-
     #endregion
 }
