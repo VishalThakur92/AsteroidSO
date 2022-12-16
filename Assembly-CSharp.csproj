@@ -67,7 +67,9 @@
     <Compile Include="Assets\Scripts\ScriptableObjects\GameDataSO.cs" />
     <Compile Include="Assets\Scripts\ScriptableObjects\PowerUpDataSO.cs" />
     <Compile Include="Assets\Scripts\PowerUp.cs" />
-    <Compile Include="Assets\Scripts\Weapon.cs" />
+    <Compile Include="Assets\Scripts\Weapon\Parent\Weapon.cs" />
+    <Compile Include="Assets\Scripts\Weapon\Child\NormalWeapon.cs" />
+    <Compile Include="Assets\Scripts\Weapon\Child\Blaster_Weapon.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">
