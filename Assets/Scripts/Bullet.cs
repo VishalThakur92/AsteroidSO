@@ -11,13 +11,14 @@ public class Bullet : Projectile
         rigidbody.AddForce(direction * speed);
 
         // Destroy the bullet after it reaches it max lifetime
-        Destroy(gameObject, maxLifetime);
+        //Destroy(gameObject, maxLifetime);
     }
 
     void OnCollisionEnter2D(Collision2D collision)
     {
         // Destroy the bullet as soon as it collides with anything
-        Destroy(gameObject);
+        //Destroy(gameObject);
+        gameObject.SetActive(false);
     }
     #endregion
 }

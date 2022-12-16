@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Default_GameData
   m_EditorClassIdentifier: 
   SpawnDistance: 12
-  AsteroidSpawnDelay: 2
+  AsteroidSpawnDelay: 4
   AsteroidAmountPerSpawn: 3
   PowerUpSpawnDelay: 20
   PowerUpAmountPerSpawn: 1

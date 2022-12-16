@@ -10,7 +10,7 @@ public class GameManager : MonoBehaviour
     public GameDataSO gameData;
 
     //player ref
-    public Player player;
+    public SpaceShip playerSpaceShip;
 
     //hit fx
     public ParticleSystem explosionEffect;
@@ -62,7 +62,7 @@ public class GameManager : MonoBehaviour
     //Handle Restart
     private void Update()
     {
-        if (player.health <= 0 && Input.GetKeyDown(KeyCode.Return)) {
+        if (playerSpaceShip.health <= 0 && Input.GetKeyDown(KeyCode.Return)) {
             NewGame(true);
         }
     }
@@ -76,11 +76,11 @@ public class GameManager : MonoBehaviour
         Spawner.Instance.StartSpawning();
 
         gameOverUI.SetActive(false);
-        player.ToggleShield(false);
+        playerSpaceShip.ToggleShield(false);
 
         SetScore(0);
 
-        SetPlayerHealth(player.playerData.maxPlayerHealth);
+        SetPlayerHealth(playerSpaceShip.playerData.maxPlayerHealth);
 
         if(respawnPlayer)
             Respawn();
@@ -90,8 +90,8 @@ public class GameManager : MonoBehaviour
     //Respwan In the center so it looks nice n clean
     public void Respawn()
     {
-        player.transform.position = Vector3.zero;
-        player.gameObject.SetActive(true);
+        playerSpaceShip.transform.position = Vector3.zero;
+        playerSpaceShip.gameObject.SetActive(true);
     }
 
     public void AsteroidDestroyed(Asteroid asteroid)
@@ -137,7 +137,7 @@ public class GameManager : MonoBehaviour
     public void OnPowerUpCollectedBehaviour(PowerUp powerUp)
     {
 
-        player.OnPowerUpCollectedBehaviour(powerUp);
+        playerSpaceShip.OnPowerUpCollectedBehaviour(powerUp);
 
 
         switch (powerUp.powerUpData.powerUpType)
@@ -151,19 +151,19 @@ public class GameManager : MonoBehaviour
 
 
 
-    public void OnPlayerHitAsteroidBehaviour(Player player)
+    public void OnPlayerHitAsteroidBehaviour(SpaceShip spaceShip)
     {
-        SetPlayerHealth(player.health);
+        SetPlayerHealth(spaceShip.health);
 
         //die
-        if (player.health <= 0)
+        if (spaceShip.health <= 0)
         {
 
-            player.rigidbody.velocity = Vector3.zero;
-            player.rigidbody.angularVelocity = 0f;
-            player.gameObject.SetActive(false);
+            spaceShip.rigidbody.velocity = Vector3.zero;
+            spaceShip.rigidbody.angularVelocity = 0f;
+            spaceShip.gameObject.SetActive(false);
 
-            explosionEffect.transform.position = player.transform.position;
+            explosionEffect.transform.position = spaceShip.transform.position;
             explosionEffect.Play();
 
 
@@ -172,7 +172,7 @@ public class GameManager : MonoBehaviour
         //take Damage only
         else
         {
-            explosionEffect.transform.position = player.transform.position;
+            explosionEffect.transform.position = spaceShip.transform.position;
             explosionEffect.Play();
         }
     }

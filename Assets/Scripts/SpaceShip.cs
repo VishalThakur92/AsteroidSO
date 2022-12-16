@@ -2,7 +2,7 @@
 using System.Collections;
 
 [RequireComponent(typeof(Rigidbody2D))]
-public class Player : MonoBehaviour
+public class SpaceShip : MonoBehaviour
 {
     #region Params
     [SerializeField]
@@ -11,6 +11,8 @@ public class Player : MonoBehaviour
 
     public new Rigidbody2D rigidbody { get; private set; }
 
+    [SerializeField]
+    Weapon weapon;
 
     //player' shield Ref
     GameObject myShield;
@@ -77,7 +79,7 @@ public class Player : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Space)) {
             GameManager.Instance.OnCutSceneOver();
-             Shoot();
+            weapon.Shoot();
         }
     }
 
@@ -94,18 +96,6 @@ public class Player : MonoBehaviour
         }
     }
 
-
-    //Normal Bullets Shooting
-    private void Shoot()
-    {
-        Bullet bullet1 = Instantiate(playerData.bulletPrefab, transform.position, transform.rotation);
-        Bullet bullet2 = Instantiate(playerData.bulletPrefab, transform.position, transform.rotation);
-        Bullet bullet3 = Instantiate(playerData.bulletPrefab, transform.position, transform.rotation);
-
-        bullet1.Project(transform.up);
-        bullet2.Project(bullet1.transform.right);
-        bullet3.Project(-bullet1.transform.right);
-    }
 
 
     //Blaster Shoot where Crecent Bullets are fired
