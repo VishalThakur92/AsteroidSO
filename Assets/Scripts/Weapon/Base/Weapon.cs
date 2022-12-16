@@ -25,9 +25,10 @@ public abstract class Weapon : MonoBehaviour
 
 
     [SerializeField]
-    protected int burstAsyncDelay = 150;
+    protected int ShotAsyncDelay = 150;
 
     protected bool isShooting = false;
+
 
 
 
@@ -52,6 +53,11 @@ public abstract class Weapon : MonoBehaviour
             }
         }
         return null;
+    }
+
+    private void OnDestroy()
+    {
+        pooledBullets.Clear();
     }
 
 

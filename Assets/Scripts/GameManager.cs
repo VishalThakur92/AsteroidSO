@@ -137,16 +137,16 @@ public class GameManager : MonoBehaviour
     public void OnPowerUpCollectedBehaviour(PowerUp powerUp)
     {
 
-        playerSpaceShip.OnPowerUpCollectedBehaviour(powerUp);
+        playerSpaceShip.OnPowerUpCollected(powerUp);
 
 
-        switch (powerUp.powerUpData.powerUpType)
-        {
-            case Globals.Powerups.barrier:
-                break;
-            case Globals.Powerups.blaster:
-                break;
-        }
+        //switch (powerUp.powerUpData.powerUpType)
+        //{
+        //    case Globals.Powerups.barrier:
+        //        break;
+        //    case Globals.Powerups.blaster:
+        //        break;
+        //}
     }
 
 

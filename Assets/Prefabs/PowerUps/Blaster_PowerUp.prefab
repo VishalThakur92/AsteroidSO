@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 2538125824281061377}
   - component: {fileID: 2538125824281061376}
   - component: {fileID: 2538125824281061407}
-  - component: {fileID: 4014029415594188104}
+  - component: {fileID: -6635621826071339355}
   m_Layer: 13
   m_Name: Blaster_PowerUp
   m_TagString: PowerUp
@@ -132,7 +132,7 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 4.263761, y: 4.3781652}
   m_EdgeRadius: 0
---- !u!114 &4014029415594188104
+--- !u!114 &-6635621826071339355
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -141,8 +141,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 2538125824281061406}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bfbc3e180d3404b59a8cb61075022ca3, type: 3}
+  m_Script: {fileID: 11500000, guid: 6816178d886570e44b845060f4bb1488, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   powerUpData: {fileID: 11400000, guid: 81c49fecaa2604be98e866948923f79c, type: 2}
   rigidbody: {fileID: 2538125824281061376}
+  duration: 10
+  weapon: {fileID: -6837295030868912945, guid: 38f13107884eaf1408aac2226027f228, type: 3}

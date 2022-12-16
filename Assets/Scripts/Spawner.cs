@@ -6,7 +6,7 @@ public class Spawner : MonoBehaviour
     #region Params
     public static Spawner Instance { get; private set; }
 
-    //All Asteroids and Powerup prefabs ever spawned
+    //Cache of All Asteroids and Powerup prefabs ever spawned
     List<Asteroid> spawnedAsteroids = new List<Asteroid>();
     List<PowerUp> spawnedPowerups = new List<PowerUp>();
 

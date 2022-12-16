@@ -12,7 +12,9 @@ public class SpaceShip : MonoBehaviour, IDamageable
     public new Rigidbody2D rigidbody { get; private set; }
 
     [SerializeField]
-    Weapon weapon;
+    Weapon defaultweapon;
+
+    Weapon specialWeapon;
 
     //player' shield Ref
     GameObject myShield;
@@ -78,14 +80,15 @@ public class SpaceShip : MonoBehaviour, IDamageable
         }
 
         if (Input.GetKeyDown(KeyCode.Space)) {
+            //TODO remove this
             GameManager.Instance.OnCutSceneOver();
-            weapon.Shoot();
+            defaultweapon.Shoot();
         }
     }
 
 
     //Movement 
-    private void FixedUpdate()
+    void FixedUpdate()
     {
         if (thrusting) {
             rigidbody.AddForce(transform.up * playerData.acceleration);
@@ -97,14 +100,6 @@ public class SpaceShip : MonoBehaviour, IDamageable
     }
 
 
-
-    //Blaster Shoot where Crecent Bullets are fired
-    void BlasterShoot() {
-
-        Bullet bullet1 = Instantiate(playerData.blasterBulletPrefab, transform.position, transform.rotation);
-
-        bullet1.Project(transform.up);
-    }
 
     private void TurnOnCollisions()
     {
@@ -119,10 +114,10 @@ public class SpaceShip : MonoBehaviour, IDamageable
         StartCoroutine(BlasterModeBehaviour());
     }
 
-    //Start Barrier or Shield Mode Behaviour
-    void InitializeBarrierMode() {
-        ToggleShield(true);
-    }
+    ////Start Barrier or Shield Mode Behaviour
+    //void InitializeBarrierMode() {
+    //    ToggleShield(true);
+    //}
 
 
     //Toggle Shield On or Off
@@ -159,17 +154,37 @@ public class SpaceShip : MonoBehaviour, IDamageable
         GetComponent<Animator>().enabled = false;
     }
 
-    public void OnPowerUpCollectedBehaviour(PowerUp powerUp)
+    public void OnPowerUpCollected(PowerUp powerUp)
     {
-        switch (powerUp.powerUpData.powerUpType)
-        {
-            case Globals.Powerups.blaster:
-                InitializeBlasterMode();
-                break;
-            case Globals.Powerups.barrier:
-                InitializeBarrierMode();
-                break;
-        }
+        //switch (powerUp.powerUpData.powerUpType)
+        //{
+        //    case Globals.Powerups.blaster:
+        //        InitializeBlasterMode();
+        //        break;
+        //    case Globals.Powerups.barrier:
+        //        InitializeBarrierMode();
+        //        break;
+        //}
+    }
+
+    //Blaster Shoot where Crecent Bullets are fired
+    void BlasterShoot()
+    {
+        Bullet bullet1 = Instantiate(playerData.blasterBulletPrefab, transform.position, transform.rotation);
+
+        bullet1.Project(transform.up);
+    }
+
+    public void SetSpecialWeapon(Weapon weapon , float duration)
+    {
+        specialWeapon = Instantiate(weapon, transform, false);
+        Invoke("DiscardSpecialWeapon", duration);
+    }
+
+    public void DiscardSpecialWeapon()
+    {
+        Destroy(specialWeapon.gameObject);
+        specialWeapon = null;
     }
 
 
@@ -186,7 +201,6 @@ public class SpaceShip : MonoBehaviour, IDamageable
 
     public void TakeDamage(int damage)
     {
-
         if (!isShieldActive)
         {
             health -= damage;

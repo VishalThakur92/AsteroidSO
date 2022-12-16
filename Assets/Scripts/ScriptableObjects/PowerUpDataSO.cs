@@ -5,7 +5,7 @@ public class PowerUpDataSO : ScriptableObject
 {
 
     //this power up's Type
-    public Globals.Powerups powerUpType;
+    //public Globals.Powerups powerUpType;
 
     //movement speed of this Powerup
     public float movementSpeed = 50f;

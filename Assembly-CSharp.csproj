@@ -60,18 +60,20 @@
     <Compile Include="Assets\Scripts\SpaceShip.cs" />
     <Compile Include="Assets\Scripts\Globals.cs" />
     <Compile Include="Assets\Scripts\ScriptableObjects\PlayerDataSO.cs" />
+    <Compile Include="Assets\Scripts\Interface\IDamageable.cs" />
+    <Compile Include="Assets\Scripts\Powerups\BlasterPowerUp.cs" />
     <Compile Include="Assets\Scripts\GameManager.cs" />
+    <Compile Include="Assets\Scripts\Weapon\Base\Weapon.cs" />
     <Compile Include="Assets\Scripts\Asteroid.cs" />
+    <Compile Include="Assets\Scripts\Weapon\Child\Blaster_Weapon.cs" />
     <Compile Include="Assets\Scripts\Projectile.cs" />
     <Compile Include="Assets\Scripts\Spawner.cs" />
     <Compile Include="Assets\Scripts\ScriptableObjects\GameDataSO.cs" />
     <Compile Include="Assets\Scripts\ScriptableObjects\PowerUpDataSO.cs" />
-    <Compile Include="Assets\Scripts\PowerUp.cs" />
-    <Compile Include="Assets\Scripts\Weapon\Parent\Weapon.cs" />
-    <Compile Include="Assets\Scripts\Weapon\Child\NormalWeapon.cs" />
-    <Compile Include="Assets\Scripts\Weapon\Child\Blaster_Weapon.cs" />
-    <Compile Include="Assets\Scripts\Interface\IDamageable.cs" />
+    <Compile Include="Assets\Scripts\Powerups\SheildPowerUp.cs" />
+    <Compile Include="Assets\Scripts\Powerups\Base\PowerUp.cs" />
     <Compile Include="Assets\Scripts\Interface\ICollectible.cs" />
+    <Compile Include="Assets\Scripts\Weapon\Child\BurstWeapon.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">
