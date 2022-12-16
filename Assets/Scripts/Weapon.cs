@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using UnityEngine;
 
 public class Weapon : MonoBehaviour
@@ -17,7 +18,12 @@ public class Weapon : MonoBehaviour
     [SerializeField]
     int bulletPoolAmount = 20;
 
+    //the weapon shall fire x nuumber of times bullet per Shoot()
+    //To Shoot in burst mode set the value to be greater than 1
+    [SerializeField]
+    int bulletsPerShot = 1;
 
+    bool isShooting = false;
 
     private void Start()
     {
@@ -45,18 +51,21 @@ public class Weapon : MonoBehaviour
 
 
     //Shoot this weapon
-    public void Shoot()
+    public async void Shoot()
     {
+        if (isShooting)
+            return;
 
-        Bullet bullet = GetPooledBullet();
-        bullet.gameObject.SetActive(true);
-        bullet.Project(transform.up);
-        //Bullet bullet1 = Instantiate(bulletPrefab, transform.position, transform.rotation);
-        //Bullet bullet2 = Instantiate(bulletPrefab, transform.position, transform.rotation);
-        //Bullet bullet3 = Instantiate(bulletPrefab, transform.position, transform.rotation);
+        isShooting = true;
 
-        //bullet1.Project(transform.up);
-        //bullet2.Project(bullet1.transform.right);
-        //bullet3.Project(-bullet1.transform.right);
+        for (int i = 0; i < bulletsPerShot; i++)
+        {
+            Bullet bullet = GetPooledBullet();
+            bullet.gameObject.SetActive(true);
+            bullet.Project(transform.up);
+            await Task.Delay(150);
+        }
+
+        isShooting = false;
     }
 }

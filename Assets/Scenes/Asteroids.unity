@@ -6188,6 +6188,7 @@ MonoBehaviour:
   bulletsPoolParent: {fileID: 524106149}
   pooledBullets: []
   bulletPoolAmount: 20
+  bulletsPerShot: 3
 --- !u!1 &1159035110
 GameObject:
   m_ObjectHideFlags: 0
