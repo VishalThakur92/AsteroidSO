@@ -473,7 +473,12 @@ MonoBehaviour:
   Powerups:
   - {fileID: 11400000, guid: f9a0b61fc105445e99866c559c5f9ba8, type: 2}
   - {fileID: 11400000, guid: 81c49fecaa2604be98e866948923f79c, type: 2}
-  asteroidPrefab: {fileID: 4394751245055917805, guid: 784457ffd007edb439542cee61bb2ca8,
+  Enemies:
+  - {fileID: 11400000, guid: 0545117fcbfab2f4091ca93b105c9d96, type: 2}
+  - {fileID: 11400000, guid: bace9a2e0a131214d9aa13aea5b16f34, type: 2}
+  - {fileID: 11400000, guid: 895f3ed5e3daa8b498dfb63c7953b3c4, type: 2}
+  - {fileID: 11400000, guid: fa432e219ebbb5c44b32b5eecddbb39c, type: 2}
+  enemyPrefab: {fileID: 4394751245055917805, guid: 784457ffd007edb439542cee61bb2ca8,
     type: 3}
   trajectoryVariance: 15
 --- !u!4 &293394487
@@ -1902,6 +1907,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameOverUI: {fileID: 1759306016}
+  canvas: {fileID: 556392472}
   scoreText: {fileID: 1159035112}
   healthText: {fileID: 424158643}
   GameOverScoreText: {fileID: 1212661579}
