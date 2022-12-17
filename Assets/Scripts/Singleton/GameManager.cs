@@ -6,7 +6,10 @@ public class GameManager : MonoBehaviour
     #region Params
     //Scriptable Object Data
     [SerializeField]
-    public GameDataSO gameData;
+    public GameDataSO gameplaySettings;
+
+    [SerializeField]
+    public PlayerDataSO playerData;
 
     //player ref
     public SpaceShip playerSpaceShip;
@@ -34,6 +37,11 @@ public class GameManager : MonoBehaviour
         Instance = this;
     }
 
+    private void Start()
+    {
+        //Initialize Player spaceship as per the data specifed in the player data SO
+        playerSpaceShip.Initalize(playerData.name, playerData.spaceShipSprite, playerData.maxPlayerHealth, playerData.acceleration, playerData.rotationSpeed);
+    }
 
     //Cut scene Algo
     public void OnCutSceneOver()
@@ -65,11 +73,12 @@ public class GameManager : MonoBehaviour
         //Hide Game over UI
         UIManager.Instance.ToggleGameOverUI(false);
 
-        playerSpaceShip.ToggleShield(false);
-
+        //Set Score to 0 as is a new game
         SetScore(0);
 
-        SetPlayerHealth(playerSpaceShip.playerData.maxPlayerHealth);
+
+        //Reset Player health to max
+        playerSpaceShip.health = playerData.maxPlayerHealth;
 
         if(respawnPlayer)
             Respawn();

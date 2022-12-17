@@ -11,11 +11,15 @@ public class SpawnManager : MonoBehaviour
     List<PowerUp> spawnedPowerups = new List<PowerUp>();
 
 
+    [SerializeField]
+    List<PowerUpSO> Powerups = new List<PowerUpSO>();
+
+
     //This hits us and we get hurt :(
     public Asteroid asteroidPrefab;
 
     //All possible Powerups that will be spawned in the game
-    public List<PowerUp> powerUpPrefabs = new List<PowerUp>();
+    //public List<PowerUp> powerUpPrefabs = new List<PowerUp>();
 
     //Can be added to Game Data to expose one more param to configure game difficulty
     [Range(0f, 45f)]
@@ -40,7 +44,7 @@ public class SpawnManager : MonoBehaviour
 
     private void Start()
     {
-        gameData = GameManager.Instance.gameData;
+        gameData = GameManager.Instance.gameplaySettings;
     }
 
 
@@ -106,8 +110,11 @@ public class SpawnManager : MonoBehaviour
             Quaternion rotation = Quaternion.AngleAxis(variance, Vector3.forward);
 
             // size within the range
-            int randomPowerUpIndex = Random.Range(0, powerUpPrefabs.Count);
-            PowerUp powerUp = Instantiate(powerUpPrefabs[randomPowerUpIndex], spawnPoint, new Quaternion(0, 0, 0, 0));
+            PowerUpSO randomPowerUpSO = Powerups[Random.Range(0, Powerups.Count)];
+            PowerUp powerUp = Instantiate(randomPowerUpSO.customBehaviourPrefab, spawnPoint, new Quaternion(0, 0, 0, 0));
+
+            //Initialize powerup with Specified parameters
+            powerUp.Initialize(randomPowerUpSO.name ,randomPowerUpSO.sprite, randomPowerUpSO.movementSpeed , randomPowerUpSO.lifetime , randomPowerUpSO.duration);
 
             // Set the trajectory to move in the direction of the spawner
             Vector2 trajectory = rotation * -spawnDirection;

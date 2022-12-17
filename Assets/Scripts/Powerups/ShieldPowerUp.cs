@@ -2,7 +2,7 @@ using UnityEngine;
 
 [RequireComponent(typeof(SpriteRenderer))]
 [RequireComponent(typeof(Rigidbody2D))]
-public class SheildPowerUp : PowerUp,ICollectible
+public class ShieldPowerUp : PowerUp,ICollectible
 {
     #region Methods
 

@@ -1,6 +1,6 @@
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "Data/GameData")]
+[CreateAssetMenu(menuName = "Data/Gameplay Settings")]
 public class GameDataSO : ScriptableObject
 {
 

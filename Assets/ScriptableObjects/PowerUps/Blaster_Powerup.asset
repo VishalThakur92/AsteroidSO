@@ -10,8 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 519c53fe9f1a8429c9ae8bf7544201cc, type: 3}
-  m_Name: Barrier
+  m_Name: Blaster_Powerup
   m_EditorClassIdentifier: 
-  powerUpType: 1
-  movementSpeed: 50
-  maxLifetime: 30
+  powerupName: Blaster
+  sprite: {fileID: 21300000, guid: db71d18743d684651a5d90050445e79e, type: 3}
+  customBehaviourPrefab: {fileID: -6635621826071339355, guid: a0c7e419ecb6f4c7587961b18b317c4f,
+    type: 3}
+  movementSpeed: 40
+  lifetime: 30
+  duration: 10

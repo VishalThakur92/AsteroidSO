@@ -9,9 +9,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 519c53fe9f1a8429c9ae8bf7544201cc, type: 3}
-  m_Name: Blaster
+  m_Script: {fileID: 11500000, guid: 3f114074cd5214a279503cd0b0fec059, type: 3}
+  m_Name: Gameplay_Settings
   m_EditorClassIdentifier: 
-  prefab: {fileID: 2538125824281061406, guid: bc8873c4690d84c0cbc38de02c84958f, type: 3}
-  movementSpeed: 50
-  maxLifetime: 30
+  SpawnDistance: 12
+  AsteroidSpawnDelay: 4
+  AsteroidAmountPerSpawn: 3
+  PowerUpSpawnDelay: 10
+  PowerUpAmountPerSpawn: 1

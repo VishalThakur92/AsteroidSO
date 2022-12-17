@@ -2,12 +2,15 @@
 using System.Collections;
 
 [RequireComponent(typeof(Rigidbody2D))]
+[RequireComponent(typeof(SpriteRenderer))]
 public class SpaceShip : MonoBehaviour, IDamageable
 {
     #region Params
-    [SerializeField]
-    public PlayerDataSO playerData;
+    //[SerializeField]
+    //public PlayerDataSO playerData;
 
+    [SerializeField]
+    GameObject shieldPrefab;
 
     public new Rigidbody2D rigidbody { get; private set; }
 
@@ -26,9 +29,6 @@ public class SpaceShip : MonoBehaviour, IDamageable
     //direction to which the player shall turn
     public float turnDirection { get; private set; } = 0f;
 
-    //player hit FX ref
-    public ParticleSystem explosionEffect;
-
     //public float respawnDelay = 3f;
     public float respawnInvulnerability = 3f;
 
@@ -41,6 +41,11 @@ public class SpaceShip : MonoBehaviour, IDamageable
     //inital Cut scene has been completed, if true continues to main gameplay
     bool cutSceneAnimationComplete = false;
 
+    SpriteRenderer image;
+
+    float aceeleration;
+
+    float rotationSpeed;
     #endregion
 
 
@@ -48,7 +53,9 @@ public class SpaceShip : MonoBehaviour, IDamageable
     private void Awake()
     {
         rigidbody = GetComponent<Rigidbody2D>();
+        image = GetComponent<SpriteRenderer>();
     }
+
 
     private void OnEnable()
     {
@@ -56,6 +63,17 @@ public class SpaceShip : MonoBehaviour, IDamageable
         // player has enough time to safely move away from asteroids
         gameObject.layer = LayerMask.NameToLayer("Ignore Collisions");
         Invoke(nameof(TurnOnCollisions), respawnInvulnerability);
+    }
+
+    public void Initalize(string _name, Sprite _sprite ,int _maxPlayerHealth ,float _acceleration , float _rotationSpeed) {
+        gameObject.name = _name;
+        image.sprite = _sprite;
+        health = _maxPlayerHealth;
+        aceeleration = _acceleration;
+        rotationSpeed = _rotationSpeed;
+
+        //Toggle Shield off by default
+        ToggleShield(false);
     }
 
 
@@ -91,11 +109,11 @@ public class SpaceShip : MonoBehaviour, IDamageable
     void FixedUpdate()
     {
         if (thrusting) {
-            rigidbody.AddForce(transform.up * playerData.acceleration);
+            rigidbody.AddForce(transform.up * aceeleration);
         }
 
         if (turnDirection != 0f) {
-            rigidbody.AddTorque(playerData.rotationSpeed * turnDirection);
+            rigidbody.AddTorque(rotationSpeed * turnDirection);
         }
     }
 
@@ -115,7 +133,7 @@ public class SpaceShip : MonoBehaviour, IDamageable
             if (myShield != null)
                 Destroy(myShield);
 
-            myShield = Instantiate(playerData.shieldPrefab, this.transform, false);
+            myShield = Instantiate(shieldPrefab, this.transform, false);
         }
         else {
             if(myShield != null)

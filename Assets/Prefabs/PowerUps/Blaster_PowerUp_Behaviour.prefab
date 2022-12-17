@@ -12,9 +12,9 @@ GameObject:
   - component: {fileID: 2538125824281061377}
   - component: {fileID: 2538125824281061376}
   - component: {fileID: 2538125824281061407}
-  - component: {fileID: 4014029415594188104}
+  - component: {fileID: -6635621826071339355}
   m_Layer: 13
-  m_Name: Shield_PowerUp
+  m_Name: Blaster_PowerUp_Behaviour
   m_TagString: PowerUp
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -29,7 +29,7 @@ Transform:
   m_GameObject: {fileID: 2538125824281061406}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.09, y: 0.09, z: 0.09}
+  m_LocalScale: {x: 0.2, y: 0.2, z: 0.2}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -74,7 +74,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 1715a196cefed4b92aecfe74f83cfa9e, type: 3}
+  m_Sprite: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -82,7 +82,7 @@ SpriteRenderer:
   m_Size: {x: 4, y: 4}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!50 &2538125824281061376
@@ -119,20 +119,20 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: -0.15370083}
+  m_Offset: {x: 0, y: -0.32925177}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 10.24, y: 10.24}
+    oldSize: {x: 5.12, y: 5.12}
     newSize: {x: 4, y: 4}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 7.4809875, y: 9.235067}
+  m_Size: {x: 4.263761, y: 4.3781652}
   m_EdgeRadius: 0
---- !u!114 &4014029415594188104
+--- !u!114 &-6635621826071339355
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -141,8 +141,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 2538125824281061406}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bfbc3e180d3404b59a8cb61075022ca3, type: 3}
+  m_Script: {fileID: 11500000, guid: 6816178d886570e44b845060f4bb1488, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  powerUpData: {fileID: 11400000, guid: f9a0b61fc105445e99866c559c5f9ba8, type: 2}
-  rigidbody: {fileID: 2538125824281061376}
+  image: {fileID: 0}
+  weapon: {fileID: -6837295030868912945, guid: 38f13107884eaf1408aac2226027f228, type: 3}

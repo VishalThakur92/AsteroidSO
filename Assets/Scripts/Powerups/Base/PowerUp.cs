@@ -1,39 +1,55 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
+
+[RequireComponent(typeof(SpriteRenderer))]
+[RequireComponent(typeof(Rigidbody))]
+[RequireComponent(typeof(BoxCollider))]
+[RequireComponent(typeof(PowerUp))]
 public abstract class PowerUp : MonoBehaviour
 {
     #region Params
-    [SerializeField]
-    //ScriptableObject Data
-    protected PowerUpDataSO powerUpData;
+    //Graphic of this powerup
+    SpriteRenderer image;
 
-    [SerializeField]
-    protected Rigidbody2D rigidbody;
-
-    //If 0 is infinite,  if greater than 0 then this powerup stays for specified seconds
-    [SerializeField]
-    protected float duration;
+    //movement and Lifetime duration of this powerup
+    //Duration - If 0 is infinite,  if greater than 0 then this powerup stays for specified seconds
+    protected float movementSpeed, lifetime , duration;
     #endregion
 
 
     #region Methods
+    void Start()
+    {
+        image = GetComponent<SpriteRenderer>();
+    }
 
+    //set the provided sprite of this powerup
+    public void SetSprite(Sprite sprite) {
+        image.sprite = sprite;
+    }
+
+    public void Initialize(string name, Sprite sprite, float _movementSpeed , float _lifeTime , float _duration)
+    {
+        gameObject.name = name;
+        image.sprite = sprite;
+        movementSpeed = _movementSpeed;
+        lifetime = _lifeTime;
+        duration = _duration;
+    }
 
     //Set Trajectory in which it shall be projected
     public virtual void SetTrajectory(Vector2 direction)
     {
         // The asteroid only needs a force to be added once since they have no
         // drag to make them stop moving
-        rigidbody.AddForce(direction * powerUpData.movementSpeed);
+        this.GetComponent<Rigidbody>()?.AddForce(direction * movementSpeed);
     }
 
 
     public virtual void DefineLifeTime()
     {
         //Destory when it has to die :(
-        Destroy(gameObject, powerUpData.maxLifetime);
+        Destroy(gameObject, lifetime);
     }
     #endregion
 }
