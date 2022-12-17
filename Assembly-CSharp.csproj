@@ -76,6 +76,7 @@
     <Compile Include="Assets\Scripts\Interface\ICollectible.cs" />
     <Compile Include="Assets\Scripts\Weapon\Child\BurstWeapon.cs" />
     <Compile Include="Assets\Scripts\Singleton\VFXManager.cs" />
+    <Compile Include="Assets\Scripts\ScriptableObjects\EnemySO.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">

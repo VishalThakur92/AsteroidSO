@@ -9,7 +9,10 @@ public class Asteroid : MonoBehaviour, IDamageable
     #region Params
     public new Rigidbody2D rigidbody { get; private set; }
     public SpriteRenderer spriteRenderer { get; private set; }
-    public Sprite[] sprites;
+
+    //public Sprite[] sprites;
+
+
 
     public float size = 1f;
     public float minSize = 0.35f;
@@ -27,10 +30,16 @@ public class Asteroid : MonoBehaviour, IDamageable
         rigidbody = GetComponent<Rigidbody2D>();
     }
 
-    private void Start()
+    public void Initialze(string name, Sprite sprite , float _size , float _minSize , float _maxSize , float _movementSpeed , float _maxLifeTime, int _damagePoints)
     {
+        gameObject.name = name;
+        minSize = _minSize;
+        maxSize = _maxSize;
+        movementSpeed = _movementSpeed;
+        maxLifetime = _maxLifeTime;
+        damagePoints = _damagePoints;
         // Assign random properties to make each asteroid feel unique
-        spriteRenderer.sprite = sprites[Random.Range(0, sprites.Length)];
+        spriteRenderer.sprite = sprite;
         transform.eulerAngles = new Vector3(0f, 0f, Random.value * 360f);
 
         // Set the scale and mass of the asteroid based on the assigned size so

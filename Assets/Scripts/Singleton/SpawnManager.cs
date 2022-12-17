@@ -14,9 +14,15 @@ public class SpawnManager : MonoBehaviour
     [SerializeField]
     List<PowerUpSO> Powerups = new List<PowerUpSO>();
 
+    [SerializeField]
+    List<EnemySO> Enemies = new List<EnemySO>();
+
+
+    [SerializeField]
+    Asteroid enemyPrefab;
 
     //This hits us and we get hurt :(
-    public Asteroid asteroidPrefab;
+    //public Asteroid asteroidPrefab;
 
     //All possible Powerups that will be spawned in the game
     //public List<PowerUp> powerUpPrefabs = new List<PowerUp>();
@@ -76,9 +82,14 @@ public class SpawnManager : MonoBehaviour
             float variance = Random.Range(-trajectoryVariance, trajectoryVariance);
             Quaternion rotation = Quaternion.AngleAxis(variance, Vector3.forward);
 
+
+            // Spawn Random Powerup
+            EnemySO randomAsteroid = Enemies[Random.Range(0, Enemies.Count)];
+            Asteroid asteroid = Instantiate(enemyPrefab, spawnPoint, rotation);
+            asteroid.Initialze(randomAsteroid.enemyName, randomAsteroid.enemySprite , randomAsteroid.size , randomAsteroid.minSize , randomAsteroid.maxSize , randomAsteroid.movementSpeed, randomAsteroid.maxLifetime , randomAsteroid.damagePoints);
+
             // Create the new asteroid by cloning the prefab and set a random
             // size within the range
-            Asteroid asteroid = Instantiate(asteroidPrefab, spawnPoint, rotation);
             asteroid.size = Random.Range(asteroid.minSize, asteroid.maxSize);
 
             // Set the trajectory to move in the direction of the spawner
@@ -109,7 +120,7 @@ public class SpawnManager : MonoBehaviour
             float variance = Random.Range(-trajectoryVariance, trajectoryVariance);
             Quaternion rotation = Quaternion.AngleAxis(variance, Vector3.forward);
 
-            // size within the range
+            // Spawn Random Powerup
             PowerUpSO randomPowerUpSO = Powerups[Random.Range(0, Powerups.Count)];
             PowerUp powerUp = Instantiate(randomPowerUpSO.customBehaviourPrefab, spawnPoint, new Quaternion(0, 0, 0, 0));
 

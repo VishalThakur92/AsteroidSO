@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 519c53fe9f1a8429c9ae8bf7544201cc, type: 3}
-  m_Name: Blaster_Powerup
+  m_Name: Blaster_Powerup_SO
   m_EditorClassIdentifier: 
   powerupName: Blaster
   sprite: {fileID: 21300000, guid: db71d18743d684651a5d90050445e79e, type: 3}
