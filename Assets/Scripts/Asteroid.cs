@@ -107,6 +107,10 @@ public class Asteroid : MonoBehaviour, IDamageable
             CreateSplit();
         }
 
+        //Play hit effect FX
+        VFXManager.Instance.ShowExplosionFX(transform.position);
+
+        //Notify Game Manager about this asteroid being destoroyed
         GameManager.Instance.AsteroidDestroyed(this);
 
         // Destroy the current asteroid since it is either replaced by two

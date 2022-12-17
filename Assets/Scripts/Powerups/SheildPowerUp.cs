@@ -19,6 +19,7 @@ public class SheildPowerUp : PowerUp,ICollectible
     }
 
 
+    //Define what happens when this powerup is collected
     public void OnCollected() {
         //Reward player with this Powerup - Enable Spaceship Shield
         GameManager.Instance.playerSpaceShip.ToggleShield(true);

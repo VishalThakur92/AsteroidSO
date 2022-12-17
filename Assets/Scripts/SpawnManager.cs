@@ -1,10 +1,10 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
 
-public class Spawner : MonoBehaviour
+public class SpawnManager : MonoBehaviour
 {
     #region Params
-    public static Spawner Instance { get; private set; }
+    public static SpawnManager Instance { get; private set; }
 
     //Cache of All Asteroids and Powerup prefabs ever spawned
     List<Asteroid> spawnedAsteroids = new List<Asteroid>();

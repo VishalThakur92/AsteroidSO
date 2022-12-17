@@ -15,5 +15,5 @@ MonoBehaviour:
   SpawnDistance: 12
   AsteroidSpawnDelay: 4
   AsteroidAmountPerSpawn: 3
-  PowerUpSpawnDelay: 0
+  PowerUpSpawnDelay: 10
   PowerUpAmountPerSpawn: 1

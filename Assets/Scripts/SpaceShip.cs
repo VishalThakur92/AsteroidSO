@@ -108,18 +108,6 @@ public class SpaceShip : MonoBehaviour, IDamageable
 
 
 
-  
-    //Start Blaster Mode Behaviour
-    void InitializeBlasterMode() {
-        StartCoroutine(BlasterModeBehaviour());
-    }
-
-    ////Start Barrier or Shield Mode Behaviour
-    //void InitializeBarrierMode() {
-    //    ToggleShield(true);
-    //}
-
-
     //Toggle Shield On or Off
     public void ToggleShield(bool flag) {
         if (flag)
@@ -138,42 +126,6 @@ public class SpaceShip : MonoBehaviour, IDamageable
     }
 
 
-    //----Callbacks------
-
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        if (collision.gameObject.CompareTag("Asteroid"))
-        {
-            TakeDamage(collision.gameObject.GetComponent<Asteroid>().damagePoints);
-        }
-    }
-
-    public void OnPlayerCutSceneAnimationComplete()
-    {
-        cutSceneAnimationComplete = true;
-        GetComponent<Animator>().enabled = false;
-    }
-
-    public void OnPowerUpCollected(PowerUp powerUp)
-    {
-        //switch (powerUp.powerUpData.powerUpType)
-        //{
-        //    case Globals.Powerups.blaster:
-        //        InitializeBlasterMode();
-        //        break;
-        //    case Globals.Powerups.barrier:
-        //        InitializeBarrierMode();
-        //        break;
-        //}
-    }
-
-    //Blaster Shoot where Crecent Bullets are fired
-    void BlasterShoot()
-    {
-        Bullet bullet1 = Instantiate(playerData.blasterBulletPrefab, transform.position, transform.rotation);
-
-        bullet1.Project(transform.up);
-    }
 
     public void SetSpecialWeapon(Weapon weapon , float duration)
     {
@@ -188,33 +140,66 @@ public class SpaceShip : MonoBehaviour, IDamageable
     }
 
 
-    //-------Coroutines----------
-    IEnumerator BlasterModeBehaviour()
-    {
-        //currentShootingMode = ShootingModes.blaster;
-        InvokeRepeating(nameof(BlasterShoot) ,.1f , .1f);
-        yield return new WaitForSeconds(10);
-        CancelInvoke(nameof(BlasterShoot));
-        //currentShootingMode = ShootingModes.normal;s
-        StopCoroutine(BlasterModeBehaviour());
-    }
-
     public void TakeDamage(int damage)
     {
+        //if shield is not active take damage
         if (!isShieldActive)
         {
             health -= damage;
 
-            if (health < 0)
-                health = 0;
+            //Destory SpaceShip
+            if (health <= 0)
+            {
+                OnSpaceShipDestoryed();
+            }
+            else {
+                //Notify GameManager about taken damage
+                GameManager.Instance.OnSpaceShipDamaged(health);
+            }
 
-            GameManager.Instance.OnPlayerHitAsteroidBehaviour(this);
         }
-        else
+        else//If Shield is active, Disable shield
         {
             ToggleShield(false);
         }
+    }
 
+
+
+    //----Callbacks------
+
+    void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Asteroid"))
+        {
+            TakeDamage(collision.gameObject.GetComponent<Asteroid>().damagePoints);
+        }
+    }
+
+    void OnSpaceShipDestoryed() {
+        health = 0;
+
+        //Reset Rigidbody Physics
+        rigidbody.velocity = Vector3.zero;
+        rigidbody.angularVelocity = 0f;
+
+        //hide Spaceship
+        gameObject.SetActive(false);
+
+
+        //Play Explosion Effect 
+        VFXManager.Instance.ShowExplosionFX(transform.position);
+
+        //Notify Game Manager this Ship has been destroyed
+        GameManager.Instance.OnSpaceShipDestroyed(this);
+    }
+
+
+    //TODO Remove this
+    public void OnPlayerCutSceneAnimationComplete()
+    {
+        cutSceneAnimationComplete = true;
+        GetComponent<Animator>().enabled = false;
     }
     #endregion
 

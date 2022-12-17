@@ -12,8 +12,8 @@ public class GameManager : MonoBehaviour
     //player ref
     public SpaceShip playerSpaceShip;
 
-    //hit fx
-    public ParticleSystem explosionEffect;
+    [SerializeField]
+    VFXManager vfxManager;
 
     //Game over UI
     public GameObject gameOverUI;
@@ -71,9 +71,9 @@ public class GameManager : MonoBehaviour
     //Do stuff on new Game, basically reset stuff
     public void NewGame(bool respawnPlayer)
     {
-        Spawner.Instance.Reset();
+        SpawnManager.Instance.Reset();
 
-        Spawner.Instance.StartSpawning();
+        SpawnManager.Instance.StartSpawning();
 
         gameOverUI.SetActive(false);
         playerSpaceShip.ToggleShield(false);
@@ -96,20 +96,10 @@ public class GameManager : MonoBehaviour
 
     public void AsteroidDestroyed(Asteroid asteroid)
     {
-        //Play hit effect FX
-        explosionEffect.transform.position = asteroid.transform.position;
-        explosionEffect.Play();
-
         //Reward score to player upon hittig small asteroids only
         if (asteroid.size < 0.7f) {
             SetScore(score + 100); // small asteroid
         }
-        //If you want to reward player for shooting large/Medium Asteroids
-        //else if (asteroid.size < 1.4f) {
-        //    SetScore(score + 50); // medium asteroid
-        //} else {
-        //    SetScore(score + 25); // large asteroid
-        //}
     }
 
 
@@ -117,6 +107,7 @@ public class GameManager : MonoBehaviour
     public void GameOver()
     {
         GameOverScoreText.text = "Score : " + score;
+        healthText.text = "0";
         gameOverUI.SetActive(true);
 
     }
@@ -133,48 +124,14 @@ public class GameManager : MonoBehaviour
 
 
     //------Callbacks-------
-
-    public void OnPowerUpCollectedBehaviour(PowerUp powerUp)
-    {
-
-        playerSpaceShip.OnPowerUpCollected(powerUp);
-
-
-        //switch (powerUp.powerUpData.powerUpType)
-        //{
-        //    case Globals.Powerups.barrier:
-        //        break;
-        //    case Globals.Powerups.blaster:
-        //        break;
-        //}
+    public void OnSpaceShipDestroyed(SpaceShip spaceShip) {
+        //Do Game Over behaviour
+        GameOver();
     }
 
-
-
-    public void OnPlayerHitAsteroidBehaviour(SpaceShip spaceShip)
-    {
-        SetPlayerHealth(spaceShip.health);
-
-        //die
-        if (spaceShip.health <= 0)
-        {
-
-            spaceShip.rigidbody.velocity = Vector3.zero;
-            spaceShip.rigidbody.angularVelocity = 0f;
-            spaceShip.gameObject.SetActive(false);
-
-            explosionEffect.transform.position = spaceShip.transform.position;
-            explosionEffect.Play();
-
-
-            GameOver();
-        }
-        //take Damage only
-        else
-        {
-            explosionEffect.transform.position = spaceShip.transform.position;
-            explosionEffect.Play();
-        }
+    public void OnSpaceShipDamaged(int health) {
+        SetPlayerHealth(health);
     }
+
     #endregion
 }
