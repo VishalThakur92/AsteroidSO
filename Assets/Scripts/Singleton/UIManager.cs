@@ -9,6 +9,8 @@ public class UIManager : MonoBehaviour
     //Game over UI
     public GameObject gameOverUI;
 
+    public GameObject canvas;
+
     public Text scoreText;
 
     public Text healthText;
@@ -28,8 +30,14 @@ public class UIManager : MonoBehaviour
         Instance = this;
     }
 
-    public void ToggleGameOverUI(bool flag) {
+    public void ToggleGameOverUI(bool flag)
+    {
         gameOverUI.SetActive(flag);
+    }
+
+    public void ToggleCanvas(bool flag)
+    {
+        canvas.SetActive(flag);
     }
 
     public void ShowGameOverScore(string text) {

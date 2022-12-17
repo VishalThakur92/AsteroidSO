@@ -41,6 +41,8 @@ public class GameManager : MonoBehaviour
     {
         //Initialize Player spaceship as per the data specifed in the player data SO
         playerSpaceShip.Initalize(playerData.name, playerData.spaceShipSprite, playerData.maxPlayerHealth, playerData.acceleration, playerData.rotationSpeed);
+
+        UIManager.Instance.ToggleCanvas(false);
     }
 
     //Cut scene Algo
@@ -49,6 +51,8 @@ public class GameManager : MonoBehaviour
         if (!cutSceneOver)
         {
             cutSceneOver = true;
+
+            UIManager.Instance.ToggleCanvas(true);
             NewGame(false);
         }
     }
@@ -75,10 +79,8 @@ public class GameManager : MonoBehaviour
 
         //Set Score to 0 as is a new game
         SetScore(0);
+        SetPlayerHealth(playerData.maxPlayerHealth);
 
-
-        //Reset Player health to max
-        playerSpaceShip.health = playerData.maxPlayerHealth;
 
         if(respawnPlayer)
             Respawn();
@@ -118,6 +120,8 @@ public class GameManager : MonoBehaviour
 
     void SetPlayerHealth(int health) {
         UIManager.Instance.ShowHealth(health.ToString());
+        //Reset Player health to max
+        playerSpaceShip.health = playerData.maxPlayerHealth;
     }
 
 

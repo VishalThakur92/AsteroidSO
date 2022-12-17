@@ -2,14 +2,15 @@ using UnityEngine;
 
 
 [RequireComponent(typeof(SpriteRenderer))]
-[RequireComponent(typeof(Rigidbody))]
-[RequireComponent(typeof(BoxCollider))]
+[RequireComponent(typeof(Rigidbody2D))]
+[RequireComponent(typeof(BoxCollider2D))]
 [RequireComponent(typeof(PowerUp))]
 public abstract class PowerUp : MonoBehaviour
 {
     #region Params
     //Graphic of this powerup
-    SpriteRenderer image;
+    [SerializeField]
+    protected SpriteRenderer image;
 
     //movement and Lifetime duration of this powerup
     //Duration - If 0 is infinite,  if greater than 0 then this powerup stays for specified seconds
@@ -42,7 +43,7 @@ public abstract class PowerUp : MonoBehaviour
     {
         // The asteroid only needs a force to be added once since they have no
         // drag to make them stop moving
-        this.GetComponent<Rigidbody>()?.AddForce(direction * movementSpeed);
+        this.GetComponent<Rigidbody2D>()?.AddForce(direction * movementSpeed);
     }
 
 
