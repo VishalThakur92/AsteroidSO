@@ -11,9 +11,6 @@ public class Projectile : MonoBehaviour
 
     //Projectile's projecting speed
     public float speed;
-
-    //Duration for which this projectile will be there in the scene, after the duration it gets destroyed
-    //public float maxLifetime;
     #endregion
 
 

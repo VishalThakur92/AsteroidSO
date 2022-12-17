@@ -56,25 +56,25 @@
     <Analyzer Include="C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\Common7\IDE\Extensions\Microsoft\Visual Studio Tools for Unity\Analyzers\Microsoft.Unity.Analyzers.dll" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\Scripts\Bullet.cs" />
-    <Compile Include="Assets\Scripts\SpaceShip.cs" />
-    <Compile Include="Assets\Scripts\Globals.cs" />
+    <Compile Include="Assets\Scripts\Weapon\Bullet.cs" />
+    <Compile Include="Assets\Scripts\Entity\SpaceShip.cs" />
+    <Compile Include="Assets\Scripts\Data\Globals.cs" />
     <Compile Include="Assets\Scripts\ScriptableObjects\PlayerDataSO.cs" />
     <Compile Include="Assets\Scripts\Interface\IDamageable.cs" />
     <Compile Include="Assets\Scripts\Powerups\BlasterPowerUp.cs" />
-    <Compile Include="Assets\Scripts\GameManager.cs" />
+    <Compile Include="Assets\Scripts\Singleton\GameManager.cs" />
     <Compile Include="Assets\Scripts\Weapon\Base\Weapon.cs" />
-    <Compile Include="Assets\Scripts\Asteroid.cs" />
+    <Compile Include="Assets\Scripts\Entity\Asteroid.cs" />
     <Compile Include="Assets\Scripts\Weapon\Child\Blaster_Weapon.cs" />
-    <Compile Include="Assets\Scripts\Projectile.cs" />
-    <Compile Include="Assets\Scripts\SpawnManager.cs" />
+    <Compile Include="Assets\Scripts\Utility\Projectile.cs" />
+    <Compile Include="Assets\Scripts\Singleton\SpawnManager.cs" />
     <Compile Include="Assets\Scripts\ScriptableObjects\GameDataSO.cs" />
     <Compile Include="Assets\Scripts\ScriptableObjects\PowerUpDataSO.cs" />
     <Compile Include="Assets\Scripts\Powerups\SheildPowerUp.cs" />
     <Compile Include="Assets\Scripts\Powerups\Base\PowerUp.cs" />
     <Compile Include="Assets\Scripts\Interface\ICollectible.cs" />
     <Compile Include="Assets\Scripts\Weapon\Child\BurstWeapon.cs" />
-    <Compile Include="Assets\Scripts\VFXManager.cs" />
+    <Compile Include="Assets\Scripts\Singleton\VFXManager.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">
