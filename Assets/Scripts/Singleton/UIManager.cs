@@ -15,6 +15,7 @@ public class UIManager : MonoBehaviour
 
     public Text healthText;
     public Text GameOverScoreText;
+    public Text ShootGuideText;
 
     public static UIManager Instance { get; private set; }
 
@@ -52,5 +53,9 @@ public class UIManager : MonoBehaviour
     {
         scoreText.text = text;
 
+    }
+
+    public void ToggleShootGuideText(bool flag) {
+        ShootGuideText.gameObject.SetActive(flag);
     }
 }

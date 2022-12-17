@@ -43,6 +43,7 @@ public class GameManager : MonoBehaviour
         playerSpaceShip.Initalize(playerData.name, playerData.spaceShipSprite, playerData.maxPlayerHealth, playerData.acceleration, playerData.rotationSpeed);
 
         UIManager.Instance.ToggleCanvas(false);
+        UIManager.Instance.ToggleShootGuideText(true);
     }
 
     //Cut scene Algo
@@ -53,6 +54,7 @@ public class GameManager : MonoBehaviour
             cutSceneOver = true;
 
             UIManager.Instance.ToggleCanvas(true);
+            UIManager.Instance.ToggleShootGuideText(false);
             NewGame(false);
         }
     }
