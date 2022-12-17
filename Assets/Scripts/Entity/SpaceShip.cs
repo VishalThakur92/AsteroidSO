@@ -129,14 +129,22 @@ public class SpaceShip : MonoBehaviour, IDamageable
 
     public void SetSpecialWeapon(Weapon weapon , float duration)
     {
+        //Discard special weapon if already equiped
+        DiscardSpecialWeapon();
+
+        //Load and apply Special Weapon
         specialWeapon = Instantiate(weapon, transform, false);
         Invoke("DiscardSpecialWeapon", duration);
     }
 
     public void DiscardSpecialWeapon()
     {
-        Destroy(specialWeapon.gameObject);
-        specialWeapon = null;
+        if (specialWeapon)
+        {
+            CancelInvoke("DiscardSpecialWeapon");
+            Destroy(specialWeapon.gameObject);
+            specialWeapon = null;
+        }
     }
 
 

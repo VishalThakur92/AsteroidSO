@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
@@ -12,20 +11,8 @@ public class GameManager : MonoBehaviour
     //player ref
     public SpaceShip playerSpaceShip;
 
-    [SerializeField]
-    VFXManager vfxManager;
-
-    //Game over UI
-    public GameObject gameOverUI;
 
     public int score { get; private set; }
-    public Text scoreText;
-
-    //public int lives { get; private set; }
-    public Text livesText;
-
-    public Text healthText;
-    public Text GameOverScoreText;
 
     //Cut scene Algo
     public bool cutSceneOver = false;
@@ -38,7 +25,7 @@ public class GameManager : MonoBehaviour
     #region Methods
     private void Awake()
     {
-        //Singelton Logic
+        //Singleton Logic
         if (Instance != null && Instance != this)
         {
             Destroy(this);
@@ -75,7 +62,9 @@ public class GameManager : MonoBehaviour
 
         SpawnManager.Instance.StartSpawning();
 
-        gameOverUI.SetActive(false);
+        //Hide Game over UI
+        UIManager.Instance.ToggleGameOverUI(false);
+
         playerSpaceShip.ToggleShield(false);
 
         SetScore(0);
@@ -106,20 +95,20 @@ public class GameManager : MonoBehaviour
 
     public void GameOver()
     {
-        GameOverScoreText.text = "Score : " + score;
-        healthText.text = "0";
-        gameOverUI.SetActive(true);
+        UIManager.Instance.ShowGameOverScore("Score : " + score);
+        UIManager.Instance.ShowHealth("0");
+        UIManager.Instance.ToggleGameOverUI(true);
 
     }
 
     private void SetScore(int score)
     {
         this.score = score;
-        scoreText.text = score.ToString();
+        UIManager.Instance.ShowScore(score.ToString());
     }
 
     void SetPlayerHealth(int health) {
-        healthText.text = health.ToString();
+        UIManager.Instance.ShowHealth(health.ToString());
     }
 
 
