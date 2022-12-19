@@ -55,14 +55,6 @@ public class SpaceShip : MonoBehaviour, IDamageable
     }
 
 
-    private void OnEnable()
-    {
-        // Turn off collisions for a few seconds after spawning to ensure the
-        // player has enough time to safely move away from asteroids
-        //gameObject.layer = LayerMask.NameToLayer("Ignore Collisions");
-        //Invoke(nameof(TurnOnCollisions), respawnInvulnerability);
-    }
-
     public void Initalize(string _name, Sprite _sprite ,int _maxPlayerHealth ,float _acceleration , float _rotationSpeed) {
         gameObject.name = _name;
         image.sprite = _sprite;
@@ -75,8 +67,7 @@ public class SpaceShip : MonoBehaviour, IDamageable
     }
 
 
-    //Handle User Input 
-    private void Update()
+    void Update()
     {
         if (!canControl)
             return;
@@ -85,6 +76,7 @@ public class SpaceShip : MonoBehaviour, IDamageable
     }
 
 
+    //Handle User Input 
     void HandlePlayerInput() {
 
         //Movement
@@ -122,14 +114,6 @@ public class SpaceShip : MonoBehaviour, IDamageable
     }
 
 
-
-    //private void TurnOnCollisions()
-    //{
-    //    gameObject.layer = LayerMask.NameToLayer("Player");
-    //}
-
-
-
     //Toggle Shield On or Off
     public void ToggleShield(bool flag) {
         if (flag)
@@ -148,8 +132,8 @@ public class SpaceShip : MonoBehaviour, IDamageable
     }
 
 
-
-    public void SetSpecialWeapon(Weapon weapon , float duration)
+    
+    public void EquipSpecialWeapon(Weapon weapon , float duration)
     {
         //Discard special weapon if already equiped
         DiscardSpecialWeapon();
