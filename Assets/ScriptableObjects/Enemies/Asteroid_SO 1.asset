@@ -16,7 +16,7 @@ MonoBehaviour:
   enemySprite: {fileID: 21300000, guid: bc0ebac591d0ccf4f9f124ee6ecf998e, type: 3}
   size: 1
   minSize: 0.35
-  maxSize: 1.65
+  maxSize: 0.8
   movementSpeed: 50
   maxLifetime: 30
   damagePoints: 50

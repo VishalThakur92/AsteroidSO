@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
@@ -17,8 +18,6 @@ public class GameManager : MonoBehaviour
 
     public int score { get; private set; }
 
-    //Cut scene Algo
-    public bool cutSceneOver = false;
 
     public static GameManager Instance { get; private set; }
 
@@ -42,23 +41,33 @@ public class GameManager : MonoBehaviour
         //Initialize Player spaceship as per the data specifed in the player data SO
         playerSpaceShip.Initalize(playerData.name, playerData.spaceShipSprite, playerData.maxPlayerHealth, playerData.acceleration, playerData.rotationSpeed);
 
-        UIManager.Instance.ToggleCanvas(false);
-        UIManager.Instance.ToggleShootGuideText(true);
+        InitializeGameStartBehaviour();
     }
 
     //Cut scene Algo
-    public void OnCutSceneOver()
+    public void InitializeGameStartBehaviour()
     {
-        if (!cutSceneOver)
-        {
-            cutSceneOver = true;
-
-            UIManager.Instance.ToggleCanvas(true);
-            UIManager.Instance.ToggleShootGuideText(false);
-            NewGame(false);
-        }
+        StartCoroutine(GameStartBehaviour());
     }
 
+
+    IEnumerator GameStartBehaviour() {
+
+        //Disable Player Spaceship Control
+        playerSpaceShip.ToggleCanControl(false);
+
+        //Show Cut Scene
+        MontageManager.Instance.PlayGameStartCutScene();
+
+        //Wait for player to acknowledge the Controls
+        yield return new WaitUntil(() => HasPlayerAcknowledgedControls());
+
+        //End Cut Scene
+        MontageManager.Instance.EndGameStartCutScene();
+
+        //Start game once complete - False because this is not a respawn but a fresh new game
+        NewGame(false);
+    }
 
     //Handle Restart
     private void Update()
@@ -72,17 +81,26 @@ public class GameManager : MonoBehaviour
     //Do stuff on new Game, basically reset stuff
     public void NewGame(bool respawnPlayer)
     {
-        SpawnManager.Instance.Reset();
+        //Donot bother with Canvas if this is a respawn and not the inital new game
+        if (!respawnPlayer)
+        {
+            UIManager.Instance.ToggleCanvas(true);
+            UIManager.Instance.ToggleShootGuideText(false);
+        }
 
+        //Reset Spawn Manager and Start Spawning again
+        SpawnManager.Instance.Reset();
         SpawnManager.Instance.StartSpawning();
 
         //Hide Game over UI
         UIManager.Instance.ToggleGameOverUI(false);
 
-        //Set Score to 0 as is a new game
+        //Set Score to 0 and health to max health , as is a new game
         SetScore(0);
         SetPlayerHealth(playerData.maxPlayerHealth);
 
+        //Enable player Controls
+        playerSpaceShip.ToggleCanControl(true);
 
         if(respawnPlayer)
             Respawn();
@@ -99,7 +117,7 @@ public class GameManager : MonoBehaviour
     public void AsteroidDestroyed(Asteroid asteroid)
     {
         //Reward score to player upon hittig small asteroids only
-        if (asteroid.size < 0.7f) {
+         if (asteroid.size < 0.7f) {
             SetScore(score + 100); // small asteroid
         }
     }
@@ -108,6 +126,10 @@ public class GameManager : MonoBehaviour
 
     public void GameOver()
     {
+
+        //Disable player Controls
+        playerSpaceShip.ToggleCanControl(false);
+
         UIManager.Instance.ShowGameOverScore("Score : " + score);
         UIManager.Instance.ShowHealth("0");
         UIManager.Instance.ToggleGameOverUI(true);
@@ -127,6 +149,14 @@ public class GameManager : MonoBehaviour
     }
 
 
+    bool HasPlayerAcknowledgedControls() {
+
+        if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.Space))
+            return true;
+        else
+            return false;
+    }
+
     //------Callbacks-------
     public void OnSpaceShipDestroyed(SpaceShip spaceShip) {
         //Do Game Over behaviour
@@ -136,6 +166,7 @@ public class GameManager : MonoBehaviour
     public void OnSpaceShipDamaged(int health) {
         SetPlayerHealth(health);
     }
+
 
     #endregion
 }

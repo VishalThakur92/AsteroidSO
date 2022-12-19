@@ -6,9 +6,6 @@ using System.Collections;
 public class SpaceShip : MonoBehaviour, IDamageable
 {
     #region Params
-    //[SerializeField]
-    //public PlayerDataSO playerData;
-
     [SerializeField]
     GameObject shieldPrefab;
 
@@ -39,7 +36,8 @@ public class SpaceShip : MonoBehaviour, IDamageable
     public bool isShieldActive = false;
 
     //inital Cut scene has been completed, if true continues to main gameplay
-    bool cutSceneAnimationComplete = false;
+    [SerializeField]
+    bool canControl = false;
 
     SpriteRenderer image;
 
@@ -61,8 +59,8 @@ public class SpaceShip : MonoBehaviour, IDamageable
     {
         // Turn off collisions for a few seconds after spawning to ensure the
         // player has enough time to safely move away from asteroids
-        gameObject.layer = LayerMask.NameToLayer("Ignore Collisions");
-        Invoke(nameof(TurnOnCollisions), respawnInvulnerability);
+        //gameObject.layer = LayerMask.NameToLayer("Ignore Collisions");
+        //Invoke(nameof(TurnOnCollisions), respawnInvulnerability);
     }
 
     public void Initalize(string _name, Sprite _sprite ,int _maxPlayerHealth ,float _acceleration , float _rotationSpeed) {
@@ -80,34 +78,40 @@ public class SpaceShip : MonoBehaviour, IDamageable
     //Handle User Input 
     private void Update()
     {
-        if (!cutSceneAnimationComplete)
+        if (!canControl)
             return;
+            
+        HandlePlayerInput();
+    }
 
+
+    void HandlePlayerInput() {
+
+        //Movement
         thrusting = Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.UpArrow);
 
-        if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow)) {
-
-            GameManager.Instance.OnCutSceneOver();
+        if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow)){
             turnDirection = 1f;
-        } else if (Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow)) {
-
-            GameManager.Instance.OnCutSceneOver();
+        }
+        else if (Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow)){
             turnDirection = -1f;
-        } else {
+        }
+        else{
             turnDirection = 0f;
         }
 
-        if (Input.GetKeyDown(KeyCode.Space)) {
-            //TODO remove this
-            GameManager.Instance.OnCutSceneOver();
+        //Shooting
+        if (Input.GetKeyDown(KeyCode.Space)){
             defaultweapon.Shoot();
         }
     }
 
-
     //Movement 
     void FixedUpdate()
     {
+        if (!canControl)
+            return;
+
         if (thrusting) {
             rigidbody.AddForce(transform.up * aceeleration);
         }
@@ -119,10 +123,10 @@ public class SpaceShip : MonoBehaviour, IDamageable
 
 
 
-    private void TurnOnCollisions()
-    {
-        gameObject.layer = LayerMask.NameToLayer("Player");
-    }
+    //private void TurnOnCollisions()
+    //{
+    //    gameObject.layer = LayerMask.NameToLayer("Player");
+    //}
 
 
 
@@ -176,7 +180,7 @@ public class SpaceShip : MonoBehaviour, IDamageable
             //Destory SpaceShip
             if (health <= 0)
             {
-                OnSpaceShipDestoryed();
+                OnDestoryed();
             }
             else {
                 //Notify GameManager about taken damage
@@ -190,10 +194,13 @@ public class SpaceShip : MonoBehaviour, IDamageable
         }
     }
 
+    public void ToggleCanControl(bool flag) {
+        canControl = flag;
+        GetComponent<Animator>().enabled = flag;
+    }
 
 
     //----Callbacks------
-
     void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("Asteroid"))
@@ -202,7 +209,7 @@ public class SpaceShip : MonoBehaviour, IDamageable
         }
     }
 
-    void OnSpaceShipDestoryed() {
+    void OnDestoryed() {
         health = 0;
 
         //Reset Rigidbody Physics
@@ -212,20 +219,11 @@ public class SpaceShip : MonoBehaviour, IDamageable
         //hide Spaceship
         gameObject.SetActive(false);
 
-
         //Play Explosion Effect 
         VFXManager.Instance.ShowExplosionFX(transform.position);
 
         //Notify Game Manager this Ship has been destroyed
         GameManager.Instance.OnSpaceShipDestroyed(this);
-    }
-
-
-    //TODO Remove this
-    public void OnPlayerCutSceneAnimationComplete()
-    {
-        cutSceneAnimationComplete = true;
-        GetComponent<Animator>().enabled = false;
     }
     #endregion
 

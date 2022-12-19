@@ -63,6 +63,7 @@
     <Compile Include="Assets\Scripts\Interface\IDamageable.cs" />
     <Compile Include="Assets\Scripts\Powerups\BlasterPowerUp.cs" />
     <Compile Include="Assets\Scripts\Singleton\GameManager.cs" />
+    <Compile Include="Assets\Scripts\ScriptableObjects\EnemySO.cs" />
     <Compile Include="Assets\Scripts\Weapon\Base\Weapon.cs" />
     <Compile Include="Assets\Scripts\Entity\Asteroid.cs" />
     <Compile Include="Assets\Scripts\Weapon\Child\Blaster_Weapon.cs" />
@@ -76,7 +77,7 @@
     <Compile Include="Assets\Scripts\Interface\ICollectible.cs" />
     <Compile Include="Assets\Scripts\Weapon\Child\BurstWeapon.cs" />
     <Compile Include="Assets\Scripts\Singleton\VFXManager.cs" />
-    <Compile Include="Assets\Scripts\ScriptableObjects\EnemySO.cs" />
+    <Compile Include="Assets\Scripts\Singleton\MontageManager.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">

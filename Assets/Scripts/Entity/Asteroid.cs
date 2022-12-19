@@ -32,6 +32,7 @@ public class Asteroid : MonoBehaviour, IDamageable
 
     public void Initialze(string name, Sprite sprite , float _size , float _minSize , float _maxSize , float _movementSpeed , float _maxLifeTime, int _damagePoints)
     {
+        size = _size;
         gameObject.name = name;
         minSize = _minSize;
         maxSize = _maxSize;
@@ -70,7 +71,9 @@ public class Asteroid : MonoBehaviour, IDamageable
 
         // Create the new asteroid at half the size of the current
         Asteroid half = Instantiate(this, position, transform.rotation);
-        half.size = size * 0.5f;
+        half.size = Random.Range(half.minSize , half.maxSize);
+
+        half.transform.localScale = Vector3.one * size;
 
         // Set a random trajectory
         half.SetTrajectory(Random.insideUnitCircle.normalized);
