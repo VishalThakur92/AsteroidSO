@@ -2,6 +2,7 @@
 ​🧭 **`Index`**
 - [**Singleton - A good design Pattern**](#singleton-design-pattern)
 - [**Scalable Architecture**](#scalable-architecture)
+- [**Bullet Pooling**](#bullet-pooling)
 - [**Tweak Game Settings**](#tweak-game-settings)
 - [**Tweak Player Settings**](#tweak-player-settings)
 - [**Tweak Enemy Settings**](#tweak-enemy-settings)
@@ -32,6 +33,11 @@ Breakdown -
 1. **`Powerup Abstract Base Class`** - Base class for all powerups, A new powerup should inherit from this class to share already implemented similar functionalities.
 1. **`Weapon Abstract Base Class`** -  Base class for all weapons, A new weapon should inherit from this class to share already implemented similar functionalities.
 
+
+# Bullet Pooling
+![pooling](https://user-images.githubusercontent.com/16806053/208377166-7dda8389-cff5-4fa9-a129-77ae89828365.PNG)
+
+The weapons for shooting donot instantiate bullet objects everytime when fired. Instead,they are designed in a memory friendly way. Object pooling as can been seen in the above image. While defining a weapon we can define the pool amount as per our needs and the weapon will utilize the bullet pool instead of creating new objects in the memory hence being an optimal solution.
 
 # Tweak Game Settings
 ![gameplay](https://user-images.githubusercontent.com/16806053/208238758-19693319-4b6a-46b7-be59-d9d553ba2220.PNG)
