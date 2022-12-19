@@ -8,13 +8,6 @@ public class MontageManager : MonoBehaviour
 
     //Singleton Instance
     public static MontageManager Instance { get; private set; }
-
-
-    //if active means a sequence is in progress
-    public bool sequenceInProgress = false;
-
-
-    Animator playerSpaceshipAnimator;
     #endregion
 
     #region Methods
@@ -29,19 +22,26 @@ public class MontageManager : MonoBehaviour
         Instance = this;
     }
 
-    private void Start()
-    {
-        playerSpaceshipAnimator = GameManager.Instance.playerSpaceShip.GetComponent<Animator>();
-        playerSpaceshipAnimator.enabled = false;
-    }
 
-    public float PlayGameStartCutScene() {
+    public float PlayGameStartCutScene()
+    {
+        Animator playerSpaceshipAnimator = GameManager.Instance.playerSpaceShip.GetComponent<Animator>();
         playerSpaceshipAnimator.enabled = true;
         return playerSpaceshipAnimator.GetCurrentAnimatorStateInfo(0).length;
     }
 
-    public void EndGameStartCutScene() {
-        Destroy(playerSpaceshipAnimator.GetComponent<Animator>());
+    public void EndGameStartCutScene()
+    {
+        Animator playerSpaceshipAnimator = GameManager.Instance.playerSpaceShip.GetComponent<Animator>();
+        Destroy(playerSpaceshipAnimator);
+    }
+
+    private void Update()
+    {
+        if (Input.GetKey(KeyCode.K)){
+            EndGameStartCutScene();
+        }
+
     }
 
     #endregion
